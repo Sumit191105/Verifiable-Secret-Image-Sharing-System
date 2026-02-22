@@ -95,25 +95,7 @@ Verify integrity using SHA-256
 
 ---
 
-## 📂 Project Structure
-verifiable-secret-image-sharing-gf256/
-│
-├── src/
-│ └── main.m
-│
-├── images/
-│ ├── original.png
-│ ├── share1.png
-│ ├── share2.png
-│ ├── share3.png
-│ └── recovered.png
-│
-├── README.md
-├── LICENSE
-└── .gitignore
 
-
----
 
 ## ⚙️ How to Run
 

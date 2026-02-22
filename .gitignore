@@ -1,0 +1,30 @@
+# MATLAB autosave files
+*.asv
+
+# MATLAB temporary files
+*.fig
+*.mat
+*.mex*
+*.mexa64
+*.mexw64
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# VS Code settings
+.vscode/
+
+# OS generated files
+desktop.ini
+
+# Temporary files
+*.tmp
+*.bak
+
+# Python cache (future-proof if you convert)
+__pycache__/
+*.pyc

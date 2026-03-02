@@ -1,0 +1,61 @@
+clc;
+clear;
+close all;
+
+%% PARAMETERS
+k = 2;      % threshold
+n = 3;      % number of shares
+prime = 257; % prime > 255
+
+%% READ IMAGE (Grayscale for simplicity)
+img = imread('cameraman.tif');
+img = double(img);
+
+[rows, cols] = size(img);
+figure; imshow(uint8(img)); title('Original Image');
+
+pixels = img(:);
+
+%% SHARE GENERATION USING POLYVAL
+shares = zeros(length(pixels), n);
+
+for i = 1:length(pixels)
+    
+    secret = pixels(i);
+    
+    % Random polynomial coefficients
+    coeff = [secret randi([0 prime-1],1,k-1)];
+    
+    for j = 1:n
+        shares(i,j) = mod(polyval(fliplr(coeff), j), prime);
+    end
+end
+
+%% Convert shares to images
+share_imgs = cell(1,n);
+
+for j = 1:n
+    temp = uint8(shares(:,j));
+    share_imgs{j} = reshape(temp, rows, cols);
+    figure; imshow(share_imgs{j});
+    title(['Share ', num2str(j)]);
+end
+
+%% RECOVERY USING POLYFIT
+recovered = zeros(length(pixels),1);
+
+for i = 1:length(pixels)
+    
+    x = 1:k;
+    y = shares(i,1:k);
+    
+    p = polyfit(x,y,k-1);
+    recovered(i) = mod(round(polyval(p,0)), prime);
+end
+
+recovered_img = reshape(uint8(recovered), rows, cols);
+
+figure; imshow(recovered_img);
+title('Recovered Image');
+
+disp('Secret Sharing using polyval Successful!');
